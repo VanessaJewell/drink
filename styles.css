@@ -1,0 +1,65 @@
+* {
+  box-sizing:border-box;
+}
+
+header {
+  border:solid 1px;
+  height:100px;
+}
+
+.container {
+  max-width:40%;
+  margin:0 auto;
+  padding-top:50px;
+
+}
+
+input {
+  width:75%;
+}
+
+.search {
+  padding-top:60px;
+}
+
+.row {
+  display:flex;
+  margin: 25px 100px;
+  width:75%;
+}
+
+.one {
+  flex:3;
+  text-align:right;
+}
+
+.two {
+  flex:2;
+  text-align: right;
+  padding-right:20px;
+}
+
+.three {
+  flex:3;
+}
+
+.four {
+  flex:2;
+}
+
+.five {
+  flex:2;
+}
+
+button {
+  width:100px;
+}
+
+.pick:hover {
+  color:red;
+  cursor:pointer;
+}
+
+img {
+  max-width:300px;
+}
