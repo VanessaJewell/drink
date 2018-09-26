@@ -24,34 +24,40 @@ function fetchIngredient(input) {
   req.onreadystatechange = function() {
     if(req.readyState == 4) {
       if(req.status == 200) {
-        let data = JSON.parse(req.response);
-        let list = document.createElement('ul');
         name.value = '';
         ingredient.value = '';
         container.innerHTML = '';
-        for(let i = 0; i < data.drinks.length; i++) {
-          let item = document.createElement('li');
-          let text = document.createTextNode(data.drinks[i].strDrink);
+        if(req.response) {
+          let data = JSON.parse(req.response);
+          console.log(req.response);
+          let list = document.createElement('ul');
+          name.value = '';
+          ingredient.value = '';
+          container.innerHTML = '';
+          for(let i = 0; i < data.drinks.length; i++) {
+            let item = document.createElement('li');
+            let text = document.createTextNode(data.drinks[i].strDrink);
 
-          item.appendChild(text);
-          list.appendChild(item);
-          item.setAttribute("class", "pick");
-          container.appendChild(list);
+            item.appendChild(text);
+            list.appendChild(item);
+            item.setAttribute("class", "pick");
+            container.appendChild(list);
 
-          item.addEventListener('click', function() {
-            recipe('search.php?s=' + data.drinks[i].strDrink.replace(/ /g, '+'));
-          })
+            item.addEventListener('click', function() {
+              recipe('search.php?s=' + data.drinks[i].strDrink.replace(/ /g, '+'));
+            })
+          }
+        }
+        else {
+          console.log('Oops, there was an error: ' + req.status);
+          let p = document.createElement('p');
+          let pText = document.createTextNode('Please enter a valid drink or ingredient');
+
+          p.setAttribute("class", "orange")
+          p.appendChild(pText);
+          container.appendChild(p);
         }
       }
-    }
-    else {
-      console.log('Oops, there was an error: ' + req.status);
-      // let p = document.createElement('p');
-      // let pText = document.createTextNode('Please enter a valid drink or ingredient');
-      //
-      // p.setAttribute("class", "orange")
-      // p.appendChild(pText);
-      // container.appendChild(p);
     }
   }
   req.open('GET',"https://www.thecocktaildb.com/api/json/v1/1/" + input, true);
@@ -106,9 +112,9 @@ function recipe(a) {
         container.appendChild(instruct);
       }
     }
-    else {
-      console.log('Oops, there was an error: ' + req.status);
-    }
+    // else {
+    //   console.log('Oops, there was an error: ' + req.status);
+    // }
   }
   req.open('GET',"https://www.thecocktaildb.com/api/json/v1/1/" + a, true);
 
