@@ -46,6 +46,12 @@ function fetchIngredient(input) {
     }
     else {
       console.log('Oops, there was an error: ' + req.status);
+      // let p = document.createElement('p');
+      // let pText = document.createTextNode('Please enter a valid drink or ingredient');
+      //
+      // p.setAttribute("class", "orange")
+      // p.appendChild(pText);
+      // container.appendChild(p);
     }
   }
   req.open('GET',"https://www.thecocktaildb.com/api/json/v1/1/" + input, true);

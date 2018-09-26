@@ -2,15 +2,26 @@
   box-sizing:border-box;
 }
 
+body {
+  margin:0 auto;
+}
+
 header {
   border:solid 1px;
-  height:100px;
+  height:150px;
+  text-align:center;
+  font-family:serif;
+  font-size:30px;
+  padding-bottom:30px;
+  background-color:#eaecef;
 }
 
 .container {
-  max-width:40%;
   margin:0 auto;
-  padding-top:50px;
+  width:400px;
+}
+
+ul {
 
 }
 
@@ -20,6 +31,8 @@ input {
 
 .search {
   padding-top:60px;
+  max-width: 960px;
+  margin:0 auto;
 }
 
 .row {
@@ -28,31 +41,27 @@ input {
   width:75%;
 }
 
-.one {
+.col_2_of_12 {
+  flex:2;
+}
+
+.col_3_of_12 {
   flex:3;
-  text-align:right;
-}
-
-.two {
-  flex:2;
-  text-align: right;
-  padding-right:20px;
-}
-
-.three {
-  flex:3;
-}
-
-.four {
-  flex:2;
-}
-
-.five {
-  flex:2;
 }
 
 button {
   width:100px;
+  padding-top:4px;
+  background-color:black;
+  color:white;
+}
+
+.buttonRandom {
+  background-color:teal;
+}
+
+.pick {
+  color:blue;
 }
 
 .pick:hover {
@@ -62,4 +71,11 @@ button {
 
 img {
   max-width:300px;
+  margin:0 auto;
+}
+
+.orange {
+  background-color:orange;
+  min-height:30px;
+  min-width:200px;
 }
