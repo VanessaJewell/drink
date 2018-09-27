@@ -4,25 +4,26 @@
 
 body {
   margin:0 auto;
+  background-image:url('qbkls.png')
 }
 
 header {
   border:solid 1px;
   height:150px;
   text-align:center;
-  font-family:serif;
+  font-family:'Trirong', serif;
   font-size:30px;
-  padding-bottom:30px;
   background-color:#eaecef;
+  padding-top:20px;
+}
+
+h1 {
+  margin:0;
 }
 
 .container {
   margin:0 auto;
-  width:400px;
-}
-
-ul {
-
+  width:350px;
 }
 
 input {
@@ -37,7 +38,7 @@ input {
 
 .row {
   display:flex;
-  margin: 25px 100px;
+  margin: 25px;
   width:75%;
 }
 
@@ -78,4 +79,6 @@ img {
   background-color:orange;
   min-height:30px;
   min-width:200px;
+  padding-top:8px;
+  text-align:center;
 }

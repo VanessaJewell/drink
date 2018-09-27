@@ -8,18 +8,29 @@ let ingredient = document.getElementById('ingredient');
 let ingredientButton = document.getElementById('ingredientButton')
 
 ingredientButton.addEventListener('click', function() {
-    fetchIngredient("filter.php?i=" + ingredient.value.replace(/ /g, '+'));
+    fetchDrink("filter.php?i=" + ingredient.value.replace(/ /g, '+'));
 })
 
 buttonName.addEventListener('click', function() {
-    fetchIngredient("search.php?s=" + name.value.replace(/ /g, '+'));
+    fetchDrink("search.php?s=" + name.value.replace(/ /g, '+'));
 })
 
 buttonRandom.addEventListener('click', function() {
   recipe("random.php");
 })
 
-function fetchIngredient(input) {
+//this function is called in the fetchDrink function when an unknown input is entered by the user//
+let wrongInfo = function () {
+  let p = document.createElement('p');
+  let pText = document.createTextNode('Please enter a valid drink or ingredient');
+
+  p.setAttribute("class", "orange")
+  p.appendChild(pText);
+  container.appendChild(p);
+}
+
+//This function is called by a click event listener and returns a drink name based on drink or ingredient inputs from the user. The user can then pick from a list of drink names which also has an event listener set up which then calls the recipe function.//
+function fetchDrink(input) {
   let req = new XMLHttpRequest();
   req.onreadystatechange = function() {
     if(req.readyState == 4) {
@@ -29,33 +40,31 @@ function fetchIngredient(input) {
         container.innerHTML = '';
         if(req.response) {
           let data = JSON.parse(req.response);
-          console.log(req.response);
-          let list = document.createElement('ul');
-          name.value = '';
-          ingredient.value = '';
-          container.innerHTML = '';
-          for(let i = 0; i < data.drinks.length; i++) {
-            let item = document.createElement('li');
-            let text = document.createTextNode(data.drinks[i].strDrink);
+            if(data.drinks !== null) {
+            let list = document.createElement('ul');
+            name.value = '';
+            ingredient.value = '';
+            container.innerHTML = '';
+            for(let i = 0; i < data.drinks.length; i++) {
+              let item = document.createElement('li');
+              let text = document.createTextNode(data.drinks[i].strDrink);
 
-            item.appendChild(text);
-            list.appendChild(item);
-            item.setAttribute("class", "pick");
-            container.appendChild(list);
+              item.appendChild(text);
+              list.appendChild(item);
+              item.setAttribute("class", "pick");
+              container.appendChild(list);
 
-            item.addEventListener('click', function() {
-              recipe('search.php?s=' + data.drinks[i].strDrink.replace(/ /g, '+'));
-            })
+              item.addEventListener('click', function() {
+                recipe('search.php?s=' + data.drinks[i].strDrink.replace(/ /g, '+'));
+              })
+            }
+          }
+          else {
+            wrongInfo();
           }
         }
         else {
-          console.log('Oops, there was an error: ' + req.status);
-          let p = document.createElement('p');
-          let pText = document.createTextNode('Please enter a valid drink or ingredient');
-
-          p.setAttribute("class", "orange")
-          p.appendChild(pText);
-          container.appendChild(p);
+          wrongInfo();
         }
       }
     }
@@ -65,14 +74,15 @@ function fetchIngredient(input) {
   req.send();
 }
 
+//This function is called either by an event listener set up on the buttonRandom or by the fetchDrink function and returns a drink picture, name, ingredients, and recipe.//
 function recipe(a) {
   let req = new XMLHttpRequest();
   req.onreadystatechange = function() {
-    container.innerHTML = '';
+
     if(req.readyState == 4) {
       if(req.status == 200) {
+        container.innerHTML = '';
         let data = JSON.parse(req.response);
-        console.log(data);
         let img = document.createElement('img');
         let name = document.createElement('h3');
 
@@ -87,12 +97,12 @@ function recipe(a) {
         let measArray = [];
         let ingArray = [];
         for (let i = 0; i < dataArray.length; i++) {
-          if (dataArray[i][0].includes("Measure") && dataArray[i][1] !== "" && dataArray[i][1] !== " " && dataArray[i][1] !== null && dataArray[i][1] !== "") {
+          if (dataArray[i][0].includes("Measure") && dataArray[i][1] !== "" && dataArray[i][1] !== " " && dataArray[i][1] !== null) {
             measArray.push(dataArray[i][1]);
           };
         }
         for (let i = 0; i < dataArray.length; i++) {
-          if (dataArray[i][0].includes("Ingredient") && dataArray[i][1] !== "" && dataArray[i][1] !== " " && dataArray[i][1] !== null && dataArray[i][1] !== "") {
+          if (dataArray[i][0].includes("Ingredient") && dataArray[i][1] !== "" && dataArray[i][1] !== " " && dataArray[i][1] !== null) {
             ingArray.push(dataArray[i][1]);
           };
         }
@@ -112,9 +122,6 @@ function recipe(a) {
         container.appendChild(instruct);
       }
     }
-    // else {
-    //   console.log('Oops, there was an error: ' + req.status);
-    // }
   }
   req.open('GET',"https://www.thecocktaildb.com/api/json/v1/1/" + a, true);
 
