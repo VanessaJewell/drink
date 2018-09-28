@@ -30,22 +30,22 @@ let wrongInfo = function () {
 }
 
 //This function is called by a click event listener and returns a drink name based on drink or ingredient inputs from the user. The user can then pick from a list of drink names which also has an event listener set up which then calls the recipe function.//
-function fetchDrink(input) {
+function fetchDrink(userInput) {
   let req = new XMLHttpRequest();
   req.onreadystatechange = function() {
-    if(req.readyState == 4) {
-      if(req.status == 200) {
+    if (req.readyState == 4) {
+      if (req.status == 200) {
         name.value = '';
         ingredient.value = '';
         container.innerHTML = '';
-        if(req.response) {
+        if (req.response) {
           let data = JSON.parse(req.response);
-            if(data.drinks !== null) {
+          if (data.drinks !== null) {
             let list = document.createElement('ul');
             name.value = '';
             ingredient.value = '';
             container.innerHTML = '';
-            for(let i = 0; i < data.drinks.length; i++) {
+            for (let i = 0; i < data.drinks.length; i++) {
               let item = document.createElement('li');
               let text = document.createTextNode(data.drinks[i].strDrink);
 
@@ -59,7 +59,7 @@ function fetchDrink(input) {
               })
             }
           }
-          else {
+        else {
             wrongInfo();
           }
         }
@@ -69,18 +69,18 @@ function fetchDrink(input) {
       }
     }
   }
-  req.open('GET',"https://www.thecocktaildb.com/api/json/v1/1/" + input, true);
+  req.open('GET',"https://www.thecocktaildb.com/api/json/v1/1/" + userInput, true);
 
   req.send();
 }
 
 //This function is called either by an event listener set up on the buttonRandom or by the fetchDrink function and returns a drink picture, name, ingredients, and recipe.//
-function recipe(a) {
+function recipe(drinkInput) {
   let req = new XMLHttpRequest();
   req.onreadystatechange = function() {
 
-    if(req.readyState == 4) {
-      if(req.status == 200) {
+    if (req.readyState == 4) {
+      if (req.status == 200) {
         container.innerHTML = '';
         let data = JSON.parse(req.response);
         let img = document.createElement('img');
@@ -123,7 +123,7 @@ function recipe(a) {
       }
     }
   }
-  req.open('GET',"https://www.thecocktaildb.com/api/json/v1/1/" + a, true);
+  req.open('GET',"https://www.thecocktaildb.com/api/json/v1/1/" + drinkInput, true);
 
   req.send();
 }

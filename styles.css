@@ -21,19 +21,33 @@ h1 {
   margin:0;
 }
 
+h3 {
+  margin:0;
+}
+
 .container {
   margin:0 auto;
   width:350px;
+  padding-left:25px;
+  padding-top:30px;
+  padding-bottom:30px;
+  min-height:450px;
+}
+
+.toggle {
+  background-color:#eaecef;
+  border:solid 1px;
 }
 
 input {
-  width:75%;
+  width:80%;
 }
 
 .search {
   padding-top:60px;
   max-width: 960px;
   margin:0 auto;
+  padding-bottom:60px;
 }
 
 .row {
@@ -81,4 +95,9 @@ img {
   min-width:200px;
   padding-top:8px;
   text-align:center;
+}
+
+footer {
+  text-align:center;
+  margin-top:50px;
 }
