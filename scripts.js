@@ -31,6 +31,7 @@ let wrongInfo = function () {
 
 //This function is called by a click event listener and returns a drink name based on drink or ingredient inputs from the user. The user can then pick from a list of drink names which also has an event listener set up which then calls the recipe function.//
 function fetchDrink(userInput) {
+  container.setAttribute('class', 'container');
   let req = new XMLHttpRequest();
   req.onreadystatechange = function() {
     if (req.readyState == 4) {
@@ -45,6 +46,7 @@ function fetchDrink(userInput) {
             name.value = '';
             ingredient.value = '';
             container.innerHTML = '';
+            container.setAttribute('class', 'container toggle');
             for (let i = 0; i < data.drinks.length; i++) {
               let item = document.createElement('li');
               let text = document.createTextNode(data.drinks[i].strDrink);
@@ -76,12 +78,14 @@ function fetchDrink(userInput) {
 
 //This function is called either by an event listener set up on the buttonRandom or by the fetchDrink function and returns a drink picture, name, ingredients, and recipe.//
 function recipe(drinkInput) {
+  container.setAttribute('class', 'container');
   let req = new XMLHttpRequest();
   req.onreadystatechange = function() {
 
     if (req.readyState == 4) {
       if (req.status == 200) {
         container.innerHTML = '';
+        container.setAttribute('class', 'container toggle');
         let data = JSON.parse(req.response);
         let img = document.createElement('img');
         let name = document.createElement('h3');
