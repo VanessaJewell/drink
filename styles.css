@@ -40,7 +40,7 @@ h3 {
 }
 
 input {
-  width:80%;
+  width:250px;
 }
 
 .search {
@@ -51,17 +51,22 @@ input {
 }
 
 .row {
-  display:flex;
-  margin: 25px;
+  margin:25px auto;
   width:75%;
 }
 
+.separate {
+  padding-bottom:30px;
+}
+
 .col_2_of_12 {
-  flex:2;
+  line-height:24px;
+  margin:10px;
 }
 
 .col_3_of_12 {
-  flex:3;
+  line-height:24px;
+  margin:10px;
 }
 
 button {
@@ -100,4 +105,23 @@ img {
 footer {
   text-align:center;
   margin-top:50px;
+}
+
+@media screen and (min-width: 768px) {
+  .row {
+    margin:25px;
+    display:flex;
+  }
+
+  .col_2_of_12 {
+    flex:2;
+  }
+
+  .col_3_of_12 {
+    flex:3;
+  }
+
+  .separate {
+    padding-bottom:0;
+  }
 }
